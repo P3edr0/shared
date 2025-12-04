@@ -6,10 +6,10 @@ SharEd é um aplicativo desenvolvido em Flutter com Dart, criado para ser uma re
 ### Demonstrações / Screenshots
 
  <p align="center">
-  <img src="./assets/images/screenshots/screenshot_01.png" width="200" />
-  <img src="./assets/images/screenshots/screenshot_02.png" width="200" />
-  <img src="./assets/images/screenshots/screenshot_03.png" width="200" /> 
-  <img src="./assets/images/screenshots/screenshot_04.png" width="200" />
+  <img src="./assets/screenshots/screenshot_04.png" width="200" />
+  <img src="./assets/screenshots/screenshot_02.png" width="200" />
+  <img src="./assets/screenshots/screenshot_03.png" width="200" /> 
+  <img src="./assets/screenshots/screenshot_01.png" width="200" />
 </p>
 
 ---
