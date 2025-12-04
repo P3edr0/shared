@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:shared/components/cards/video_player.dart';
+import 'package:shared/services/video_player/video_player_service.dart';
 import 'package:shared/utils/icons.dart';
 
 import '../../responsiveness/responsive.dart';
 import '../../responsiveness/shared_font_style.dart';
 import '../../theme/colors.dart';
 import '../button/interaction_button.dart';
-import '../loadings/loading_content.dart';
 import '../post_interactions_bar.dart';
 import '../post_owner_details.dart';
 
-class SharedImagePost extends StatelessWidget {
-  const SharedImagePost({
+class SharedVideoPost extends StatelessWidget {
+  const SharedVideoPost({
     super.key,
     required this.userImage,
     required this.postDate,
     required this.userName,
-    required this.postImage,
+    required this.postVideo,
     required this.subtitle,
     required this.likes,
     required this.comments,
     required this.shares,
     required this.onEditTap,
     required this.onPostTap,
+    required this.videoPlayerService,
   });
 
   final String postDate;
   final String userImage;
   final String userName;
-  final String postImage;
+  final String postVideo;
   final String subtitle;
   final int likes;
   final int comments;
   final int shares;
   final VoidCallback onEditTap;
   final VoidCallback onPostTap;
-
+  final IVideoPlayerService videoPlayerService;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -71,22 +73,26 @@ class SharedImagePost extends StatelessWidget {
                       color: secondaryColor,
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: Image.network(
-                      postImage,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        final value = loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                            : null;
-                        return SharedLoadingContent(value: value);
-                      },
-                      errorBuilder: (context, error, stackTrace) => SizedBox(
-                        height: Responsive.getSize(150),
-                        width: double.infinity,
-                      ),
+                    child: SharedVideoPlayer(
+                      videoUrl: postVideo,
+                      videoService: videoPlayerService,
                     ),
+                    //  Image.network(
+                    //   postImage,
+                    //   fit: BoxFit.cover,
+                    //   loadingBuilder: (context, child, loadingProgress) {
+                    //     if (loadingProgress == null) return child;
+                    //     final value = loadingProgress.expectedTotalBytes != null
+                    //         ? loadingProgress.cumulativeBytesLoaded /
+                    //               loadingProgress.expectedTotalBytes!
+                    //         : null;
+                    //     return LoadingContent(value: value);
+                    //   },
+                    //   errorBuilder: (context, error, stackTrace) => SizedBox(
+                    //     height: Responsive.getSize(150),
+                    //     width: double.infinity,
+                    //   ),
+                    // ),
                   ),
                 ),
 

@@ -2,6 +2,8 @@ enum PostType {
   image,
   video;
 
+  bool get isImage => this == image;
+
   static PostType translate(String value) {
     switch (value) {
       case 'image':

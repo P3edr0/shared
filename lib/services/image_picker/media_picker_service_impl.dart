@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
-import 'image_picker_service.dart';
+import 'media_picker_service.dart';
 
-class ImagePickerServiceImpl extends IImagePickerService {
+class MediaPickerServiceImpl extends IMediaPickerService {
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -36,15 +36,12 @@ class ImagePickerServiceImpl extends IImagePickerService {
         '.jpeg',
         '.png',
         '.gif',
-
         '.mp4',
         '.mov',
-
         '.mkv',
         '.webm',
       ];
 
-      // ⬇️ VALIDADOR DE FORMATOS
       final extension = media.path.toLowerCase().split('.').last;
       final isValid = allowedExtensions.any((ext) => ext.endsWith(extension));
       if (isValid) {
@@ -54,12 +51,11 @@ class ImagePickerServiceImpl extends IImagePickerService {
     return null;
   }
 
-  // 🎥 Gravar vídeo
   @override
   Future<File?> recordVideo() async {
     final XFile? video = await _picker.pickVideo(
       source: ImageSource.camera,
-      maxDuration: Duration(seconds: 60), // Limite de 60 segundos
+      maxDuration: Duration(seconds: 60),
     );
 
     if (video != null) {

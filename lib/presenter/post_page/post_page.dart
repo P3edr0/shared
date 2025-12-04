@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shared/components/button/main_button.dart';
 import 'package:shared/components/textfield/textfield.dart';
-import 'package:shared/domain/entities/post_entity.dart';
 import 'package:shared/presenter/post_page/store/components/post_preview.dart';
 import 'package:shared/presenter/post_page/store/post_store.dart';
 import 'package:shared/responsiveness/responsive.dart';
@@ -13,7 +12,7 @@ import 'package:shared/utils/icons.dart';
 import '../../components/app_bars/app_bar.dart';
 import '../../components/loadings/small_loading.dart';
 import '../../responsiveness/shared_font_style.dart';
-import '../../services/image_picker/image_picker_service.dart';
+import '../../services/image_picker/media_picker_service.dart';
 import '../../utils/dependencies.dart';
 import '../../utils/routes/app_navigator.dart';
 import '../../utils/routes/app_routes.dart';
@@ -26,7 +25,7 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  final _pickerService = getIt<IImagePickerService>();
+  final _pickerService = getIt<IMediaPickerService>();
   final _store = getIt<PostStore>();
   final _navigator = AppNavigator();
 
@@ -197,22 +196,7 @@ class _PostPageState extends State<PostPage> {
                                 onTap: () async {
                                   if (_store.isLoading) return;
 
-                                  final subtitle =
-                                      _store.subtitleController.text;
-                                  final newPost = PostEntity(
-                                    id: UniqueKey().toString(),
-                                    type: PostType.image,
-                                    subtitle: subtitle,
-                                    userId: '1',
-                                    date: DateTime.now(),
-                                    localContent: _store.selectedImage,
-                                    likes: 0,
-                                    comments: [],
-                                    shares: 0,
-                                  );
-                                  final response = await _store.createPost(
-                                    newPost,
-                                  );
+                                  final response = await _store.createPost();
                                   if (response) {
                                     _navigator.goto(
                                       SharedRoutes.home,

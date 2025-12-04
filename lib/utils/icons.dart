@@ -15,4 +15,6 @@ class SharedIcons {
   static IconData back = FeatherIcons.chevronLeft;
   static IconData update = FeatherIcons.refreshCw;
   static IconData delete = FeatherIcons.trash2;
+  static IconData play = Icons.play_arrow;
+  static IconData pause = Icons.pause;
 }

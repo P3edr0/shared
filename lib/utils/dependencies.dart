@@ -3,8 +3,6 @@ import 'package:shared/data/base_datasource/auth_datasource.dart';
 import 'package:shared/data/firebase/auth/login.dart';
 import 'package:shared/data/firebase/auth/recover_password.dart';
 import 'package:shared/data/repository/auth/login_repository_impl.dart';
-import 'package:shared/data/repository/post/fetch_all_posts_repository_impl.dart'
-    show FetchAllPostsRepositoryImp;
 import 'package:shared/domain/exceptions/datasource_exceptions/datasource_exception_manager.dart';
 import 'package:shared/domain/exceptions/datasource_exceptions/firebase_exceptions.dart';
 import 'package:shared/domain/usecases/auth/login/login_usecase.dart';
@@ -13,8 +11,9 @@ import 'package:shared/presenter/auth/login/store/login_store.dart';
 import 'package:shared/presenter/home/store/home_store.dart';
 import 'package:shared/presenter/post_details_page/store/post_details_store.dart';
 import 'package:shared/presenter/post_page/store/post_store.dart';
-import 'package:shared/services/image_picker/image_picker_service.dart';
-import 'package:shared/services/image_picker/image_picker_service_impl.dart';
+import 'package:shared/services/image_picker/media_picker_service.dart';
+import 'package:shared/services/image_picker/media_picker_service_impl.dart';
+import 'package:shared/services/video_player/video_player_service.dart';
 
 import '../data/base_datasource/post_datasource.dart';
 import '../data/firebase/auth/create_account.dart';
@@ -26,6 +25,7 @@ import '../data/repository/auth/create_account_repository_impl.dart';
 import '../data/repository/auth/recover_password_repository_impl.dart';
 import '../data/repository/post/create_post_repository_impl.dart';
 import '../data/repository/post/delete_post_repository_impl.dart';
+import '../data/repository/post/fetch_all_posts_repository_impl.dart';
 import '../data/repository/post/update_post_repository_impl.dart';
 import '../domain/repository/auth/auth_repository.dart';
 import '../domain/repository/post/post_repository.dart';
@@ -36,12 +36,14 @@ import '../domain/usecases/post/delete_post_usecase.dart';
 import '../domain/usecases/post/fetch_all_posts_usecase.dart';
 import '../domain/usecases/post/update_post_usecase.dart';
 import '../presenter/auth/reset_password/store/reset_password_store.dart';
+import '../services/video_player/video_player_service_impl.dart';
 
 final getIt = GetIt.instance;
 
 void configureDependencies() {
   // SERVICES DEPENDENCIES ++++++++++++++++
-  getIt.registerSingleton<IImagePickerService>(ImagePickerServiceImpl());
+  getIt.registerSingleton<IMediaPickerService>(MediaPickerServiceImpl());
+  getIt.registerSingleton<IVideoPlayerService>(VideoPlayerServiceImpl());
   // DATABASE DEPENDENCIES ++++++++++++++++
   getIt.registerSingleton<IDatasourceExceptionManager>(
     FirebaseExceptionManager(),

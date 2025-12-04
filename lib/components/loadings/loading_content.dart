@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../responsiveness/responsive.dart';
 import '../../theme/colors.dart';
 
-class LoadingContent extends StatelessWidget {
-  const LoadingContent({super.key, this.value});
+class SharedLoadingContent extends StatelessWidget {
+  const SharedLoadingContent({super.key, this.value});
   final double? value;
   @override
   Widget build(BuildContext context) {

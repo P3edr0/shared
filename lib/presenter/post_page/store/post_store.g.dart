@@ -105,8 +105,8 @@ mixin _$PostStore on PostStoreBase, Store {
   );
 
   @override
-  Future<bool> createPost(PostEntity newPost) {
-    return _$createPostAsyncAction.run(() => super.createPost(newPost));
+  Future<bool> createPost() {
+    return _$createPostAsyncAction.run(() => super.createPost());
   }
 
   late final _$updatePostAsyncAction = AsyncAction(
