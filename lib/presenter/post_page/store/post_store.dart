@@ -8,6 +8,7 @@ import 'package:shared/domain/usecases/post/create_post_usecase.dart';
 import '../../../domain/usecases/post/delete_post_usecase.dart';
 import '../../../domain/usecases/post/update_post_usecase.dart';
 import '../../../utils/enums/page_type.dart';
+import '../../../utils/enums/post_type.dart';
 
 part 'post_store.g.dart';
 
@@ -32,6 +33,7 @@ abstract class PostStoreBase with Store {
   File? _selectedVideo;
   @observable
   PostEntity? _selectedToEditPost;
+  PostType selectedMediaType = PostType.image;
   String? exception;
   final TextEditingController subtitleController = TextEditingController();
   ////////////// GET /////////////////////////
@@ -42,11 +44,17 @@ abstract class PostStoreBase with Store {
   @action
   setSelectedVideo(File? newSelectedVideo) {
     _selectedVideo = newSelectedVideo;
+    if (_selectedVideo != null) {
+      selectedMediaType = PostType.video;
+    }
   }
 
   @action
   setSelectedImage(File? newSelectedImage) {
     _selectedImage = newSelectedImage;
+    if (selectedImage != null) {
+      selectedMediaType = PostType.image;
+    }
   }
 
   @action
@@ -84,8 +92,28 @@ abstract class PostStoreBase with Store {
   }
 
   @action
-  Future<bool> createPost(PostEntity newPost) async {
+  Future<bool> createPost() async {
     setLoading();
+    final File? content;
+    if (selectedMediaType.isImage) {
+      content = selectedImage!;
+    } else {
+      content = selectedVideo;
+    }
+
+    final subtitle = subtitleController.text;
+    final newPost = PostEntity(
+      id: UniqueKey().toString(),
+      type: selectedMediaType,
+      subtitle: subtitle,
+      userId: '1',
+      date: DateTime.now(),
+      localContent: content,
+      likes: 0,
+      comments: [],
+      shares: 0,
+    );
+
     final response = await createPostUsecase(newPost);
     return response.fold(
       (newException) {
